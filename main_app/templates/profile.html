@@ -1,6 +1,15 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<h1>User Profile Page</h1>
+<div class="row top-buffer">
+    <div class="col s6">
+        <!-- user image goes here -->
+    </div>
+    <div class="col s6">
+        <h2>{{ user.first_name}} {{ user.last_name}}</h2>
+        <!-- user description text here -->
+        </p>
+    </div>
+</div>
 
 {% endblock %}
