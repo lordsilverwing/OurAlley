@@ -12,4 +12,25 @@
     </div>
 </div>
 
+<div class="top-buffer">
+    <h3>My Pets</h3>
+
+    <div class="row">
+        {% for dog in user.dog_set.all %} 
+            <div class="col s3 ">
+                <div class="card dog-img">
+                    {{ dog.name }}
+                </div>
+            </div>
+        {% endfor %}
+        <div class="col s3">
+            <a href="{% url 'add_dog' %}">
+                <div class="card green lighten-4">
+                    <i class="large white-text material-icons big-i">add</i>
+                </div>  
+            </a>
+        </div>
+    </div>
+</div>
+
 {% endblock %}
