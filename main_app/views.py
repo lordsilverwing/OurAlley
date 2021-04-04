@@ -54,3 +54,10 @@ class CreateDog(LoginRequiredMixin, CreateView):
     form.instance.user = self.request.user
     return super().form_valid(form)
 
+def playdates_index(request):
+  playdates = Playdate.objects.all()
+  return render(request, 'playdates/index.html', {'playdates': playdates})
+
+def add_invite(request):
+  invites = Invite.objects.all()
+  return render(request, '')
