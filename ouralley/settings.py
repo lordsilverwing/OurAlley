@@ -11,6 +11,14 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 
 from pathlib import Path
+import environ
+
+env = environ.Env(
+    # set casting, default value
+    DEBUG=(bool, False)
+)
+# reading .env file
+environ.Env.read_env()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -19,8 +27,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
+
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'h#c(go(w%$c^wbxbcpu27er#6tpgn(dgfy!xy7$03=smaj@19+'
+SECRET_KEY = env('SECRET_KEY')
+GOOGLE_MAPS_API_KEY = env('GOOGLE_MAPS_API_KEY_SECRET')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
