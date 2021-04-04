@@ -4,10 +4,14 @@ from .models import Dog
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from .forms import UserForm
+from django.conf import settings
 
 # Create your views here.
 def home(request):
-  return render(request, 'home.html')
+  context = {
+    'api_key': settings.GOOGLE_MAPS_API_KEY
+  }
+  return render(request, 'home.html', context)
 
 def about(request):
   return render(request, 'about.html')
