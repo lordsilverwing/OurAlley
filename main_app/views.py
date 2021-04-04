@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import login
+from django.views.generic.edit import CreateView
 from .models import Dog
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -39,3 +40,13 @@ def signup(request):
 def dogs_index(request):
     dogs = Dog.objects.all()
     return render(request, 'dogs/index.html', { 'dogs': dogs })
+
+class CreateDog(LoginRequiredMixin, CreateView):
+  model = Dog
+  fields = ['name', 'breed', 'size', 'age', 'description']
+  success_url = '/accounts/profile/'
+
+  def form_valid(self, form):
+    form.instance.user = self.request.user
+    return super().form_valid(form)
+
