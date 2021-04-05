@@ -63,6 +63,9 @@ class Playdate(models.Model):
     description = models.TextField(max_length=200)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
 
+    def get_absolute_url(self):
+        return reverse('play_index')
+
 class Invite(models.Model):
     response = models.IntegerField(
         choices=RESPONSE,
