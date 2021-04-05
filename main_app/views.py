@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import login
 from django.views.generic.edit import CreateView
-from .models import Dog
+from .models import Dog, Playdate, Invite, Profile
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from .forms import UserForm
@@ -41,7 +41,8 @@ def about(request):
 
 @login_required
 def profile(request):
-  return render(request, 'profile.html')
+  profile = Profile.objects.all()
+  return render(request, 'profile.html', { 'profile' : profile})
 
 def signup(request):
   error_message = ''
