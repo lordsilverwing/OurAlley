@@ -86,7 +86,10 @@ class DogDelete(DeleteView):
   model = Dog
   success_url = '/dogs/'
 
-  
+def playdate_detail(request, playdate_id):
+  playdate = Playdate.objects.get(id=playdate_id)
+  address = playdate.location.replace(' ', '+')
+  return render(request, 'playdates/detail.html', {'playdate': playdate, 'address': address, 'api_key': settings.GOOGLE_MAPS_API_KEY})
 
 def playdates_index(request):
   playdates = Playdate.objects.all()

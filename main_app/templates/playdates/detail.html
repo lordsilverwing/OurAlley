@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="card">
+<div class="card-content">
+    <iframe
+    width="600"
+    height="450"
+    style="border:0"
+    loading="lazy"
+    allowfullscreen
+    src="https://www.google.com/maps/embed/v1/place?key={{ api_key }}
+        &q={{ address }}">
+    </iframe>
+    <span class="card-title">{{ playdate.location }}</span>
+    <p>Time: {{ playdate.get_time_display }}</p>
+    <p>Date: {{ playdate.date }}</p>
+    <p>Description: {{ playdate.description }}</p>
+    <p>User: {{ playdate.user }}</p>
+
+</div>
+</div>
+
+{% endblock %}

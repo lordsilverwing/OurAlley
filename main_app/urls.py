@@ -14,5 +14,6 @@ urlpatterns = [
     #path('dogs/<int:dog_id>/add_photo/', views.add_photo, name='add_photo'),
     path('playdates/', views.playdates_index, name='play_index'),
     path('playdates/create', views.CreatePlaydate.as_view(), name='add_playdate'),
+    path('playdates/<int:playdate_id>/', views.playdate_detail, name='playdate'),
     path('dogs/<int:dog_id>/', views.dogs_detail, name='detail'),
 ]
