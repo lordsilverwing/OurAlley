@@ -86,6 +86,7 @@ class Dog(models.Model):
     description = models.TextField(max_length=300)
     age = models.IntegerField()
     user = models.ForeignKey(User, on_delete=models.CASCADE)
+    location = models.CharField(max_length=100)
 
     def __str__(self):
         return self.name
