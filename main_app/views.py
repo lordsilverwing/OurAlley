@@ -28,6 +28,7 @@ def extract_lat_long_via_address(address_or_zipcode):
 def home(request):
   # test code to show how to use geocode and embedded maps
   lat, lng = extract_lat_long_via_address('345+Chelmsford+Drive+Brentwood+CA')
+  print(type(lat))
   context = {
     'api_key': settings.GOOGLE_MAPS_API_KEY,
     'lat': lat,
