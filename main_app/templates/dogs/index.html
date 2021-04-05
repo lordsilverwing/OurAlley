@@ -1,29 +1,25 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<h1>Dog List</h1>
-
+<h1 class="center-align" >List of All Dogs</h1>
+<div class="row center-cols center-align">
 {% for dog in dogs %}
-  <div class="card">
-   <a href="/dogs/{{ dog.id }}">
-    <div class="card-content row">
-      <div class="col s4 center">
-        <img width="175" height="175" src="../../static/images/doggo.png" alt="Image of a dog">
-      </div>
-      <div class="col s8">
-        <span class="card-title">{{ dog.name }}</span>
-        <p>Size: {{ dog.get_size_display }}</p>
-        <p>Breed: {{ dog.breed }}</p>
-        <p>Description: {{ dog.description }}</p>
-        {% if dog.age > 0 %}
-          <p>Age: {{ dog.age }}</p>
-        {% else %}
-          <p>Age: puppy</p>
-        {% endif %}
-      </div>
+  <div class="col m5">
+    <div class="card small">
+      <a href="/dogs/{{ dog.id }}">
+        <div class="card-image">
+          <img src="../../static/images/doggo.png" alt="Image of a dog">
+          <span class="card-title">{{ dog.name }}</span>
+        </div>
+        <div class="card-content center-align">
+          <h6>
+            My name is {{dog.name}}!
+            Click on me if you want to play!
+          </h6>
+        </div>
+      </a>
     </div>
-    </a>
-  </div>
+  </div>   
 {% endfor %}
-
-{% endblock %}
+</div>
+{% endblock %} 

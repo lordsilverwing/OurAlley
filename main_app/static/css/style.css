@@ -22,3 +22,16 @@ footer.page-footer {
   width: 175px;
   height: 175px;
 }
+
+.center-cols > .col {
+  float:none; /* disable the float */
+  display: inline-block; /* make blocks inline-block */
+  text-align: initial; /* restore text-align to default */
+}
+
+#homedogs {
+  width: 75%;
+  height: 50%;
+  position: absolute;
+}
+
