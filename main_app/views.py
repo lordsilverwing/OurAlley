@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import login
-from django.views.generic.edit import CreateView
+from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from .models import Dog, Playdate, Invite, Profile
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -72,6 +72,16 @@ class CreateDog(LoginRequiredMixin, CreateView):
   fields = ['name', 'breed', 'size', 'age', 'description']
   success_url = '/accounts/profile/'
 
+
+class DogUpdate(UpdateView):
+  model = Dog
+ 
+  fields = ['breed', 'description', 'age', 'size']
+
+class DogDelete(DeleteView):
+  model = Dog
+  success_url = '/dogs/'
+
   def form_valid(self, form):
     form.instance.user = self.request.user
     return super().form_valid(form)
@@ -87,4 +97,8 @@ def add_invite(request):
 class CreatePlaydate(LoginRequiredMixin, CreateView):
   model = Playdate
   fields = ['time', 'date', 'description']
+
+def dogs_detail(request, dog_id):
+  dog = Dog.objects.get(id=dog_id)
+  return render(request, 'dogs/detail.html', { 'dog': dog })
 
