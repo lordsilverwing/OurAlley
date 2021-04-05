@@ -27,12 +27,11 @@ def extract_lat_long_via_address(address_or_zipcode):
 # Create your views here.
 def home(request):
   # test code to show how to use geocode and embedded maps
-  lat, lng = extract_lat_long_via_address('345+Chelmsford+Drive+Brentwood+CA')
-  print(type(lat))
+  # lat, lng = extract_lat_long_via_address('345+Chelmsford+Drive+Brentwood+CA')
   context = {
-    'api_key': settings.GOOGLE_MAPS_API_KEY,
-    'lat': lat,
-    'lng': lng
+    # 'api_key': settings.GOOGLE_MAPS_API_KEY,
+    # 'lat': lat,
+    # 'lng': lng
   }
   return render(request, 'home.html', context)
 
@@ -95,6 +94,11 @@ def add_invite(request):
   invites = Invite.objects.all()
   return render(request, '')
 
+class CreatePlaydate(LoginRequiredMixin, CreateView):
+  model = Playdate
+  fields = ['time', 'date', 'description']
+
 def dogs_detail(request, dog_id):
   dog = Dog.objects.get(id=dog_id)
   return render(request, 'dogs/detail.html', { 'dog': dog })
+

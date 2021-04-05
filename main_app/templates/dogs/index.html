@@ -5,8 +5,12 @@
 
 {% for dog in dogs %}
   <div class="card">
-    <a href="/dogs/{{ dog.id }}">
-      <div class="card-content">
+   <a href="/dogs/{{ dog.id }}">
+    <div class="card-content row">
+      <div class="col s4 center">
+        <img width="175" height="175" src="../../static/images/doggo.png" alt="Image of a dog">
+      </div>
+      <div class="col s8">
         <span class="card-title">{{ dog.name }}</span>
         <p>Size: {{ dog.get_size_display }}</p>
         <p>Breed: {{ dog.breed }}</p>
@@ -17,6 +21,7 @@
           <p>Age: puppy</p>
         {% endif %}
       </div>
+    </div>
     </a>
   </div>
 {% endfor %}

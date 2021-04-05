@@ -18,7 +18,8 @@
     <div class="row">
         {% for dog in user.dog_set.all %} 
             <div class="col s3 ">
-                <div class="card dog-img">
+                <div class="card">
+                    <img width="175" height="175" src="../../static/images/doggo.png" alt="Image of a dog">
                     {{ dog.name }}
                 </div>
             </div>
