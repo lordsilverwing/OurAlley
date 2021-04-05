@@ -24,11 +24,7 @@
         setDefaultDate: true,
         autoClose: true
     });
-        const timeEl = document.getElementById('id_time');
-        M.Timepicker.init(timeEl, {
-            defaultTime: 'now',
-            fromNow: 3600000,
-            format: 
-        });
+    var selectEl = document.getElementById('id_time');
+    M.FormSelect.init(selectEl);
   </script>
 {% endblock %}

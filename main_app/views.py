@@ -71,17 +71,16 @@ class CreateDog(LoginRequiredMixin, CreateView):
   model = Dog
   fields = ['name', 'breed', 'size', 'age', 'description']
   success_url = '/accounts/profile/'
+
   def form_valid(self, form):
-    # Assign the logged in user (self.request.user)
-    form.instance.user = self.request.user  # form.instance is the cat
-    # Let the CreateView do its job as usual
+    form.instance.user = self.request.user
     return super().form_valid(form)
 
 
 class DogUpdate(UpdateView):
   model = Dog
- 
   fields = ['breed', 'description', 'age', 'size']
+  
 
 class DogDelete(DeleteView):
   model = Dog
@@ -100,6 +99,10 @@ def add_invite(request):
 class CreatePlaydate(LoginRequiredMixin, CreateView):
   model = Playdate
   fields = ['time', 'date', 'description']
+
+  def form_valid(self, form):
+    form.instance.user = self.request.user
+    return super().form_valid(form)
 
 def dogs_detail(request, dog_id):
   dog = Dog.objects.get(id=dog_id)

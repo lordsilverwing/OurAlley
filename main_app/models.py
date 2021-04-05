@@ -16,6 +16,42 @@ RESPONSE = (
     (1, 'Accept'),
     (2, 'Tentative')
 )
+
+TIMES = (
+    ('0', '6:00am'),
+    ('1', '6:30am'),
+    ('2', '7:00am'), 
+    ('3', '7:30am'), 
+    ('4', '8:00am'), 
+    ('5', '8:30am'), 
+    ('6', '9:00am'), 
+    ('7', '9:30am'),
+    ('8', '10:00am'),
+    ('9', '10:30am'),
+    ('10', '11:00am'), 
+    ('11', '11:30am'), 
+    ('12', '12:00pm'), 
+    ('13', '12:30m'), 
+    ('14', '1:00pm'), 
+    ('15', '1:30pm'),
+    ('16', '2:00pm'),
+    ('17', '2:30pm'),
+    ('18', '3:00pm'), 
+    ('19', '3:30pm'), 
+    ('20', '4:00pm'), 
+    ('21', '4:30pm'), 
+    ('22', '5:00pm'), 
+    ('23', '5:30pm'),
+    ('24', '6:00pm'), 
+    ('25', '6:30pm'),
+    ('26', '7:00pm'),
+    ('27', '7:30pm'),
+    ('28', '8:00pm'), 
+    ('29', '8:30pm'), 
+    ('30', '9:00pm'), 
+    ('31', '9:30pm'), 
+    ('32', '10:00pm')
+)
 # Create your models here.
 
 class Profile(models.Model):
@@ -58,7 +94,11 @@ class Dog(models.Model):
         return reverse('detail', kwargs={'dog_id': self.id})
 
 class Playdate(models.Model):
-    time = models.TimeField('time to play')
+    time = models.CharField(
+        max_length=7,
+        choices=TIMES,
+        default=TIMES[14]
+    )
     date = models.DateField('date of play')
     description = models.TextField(max_length=200)
     user = models.ForeignKey(User, on_delete=models.CASCADE)

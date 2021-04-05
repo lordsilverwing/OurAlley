@@ -7,8 +7,8 @@
   <div class="card">
     <div class="card-content">
       <span class="card-title">{{ playdate.id }}</span>
-      <p>Size: {{ playdate.time }}</p>
-      <p>Breed: {{ playdate.date }}</p>
+      <p>Time: {{ playdate.get_time_display }}</p>
+      <p>Date: {{ playdate.date }}</p>
       <p>Description: {{ playdate.description }}</p>
       <p>User: {{ playdate.user }}</p>
 
