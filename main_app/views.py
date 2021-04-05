@@ -84,3 +84,7 @@ def playdates_index(request):
 def add_invite(request):
   invites = Invite.objects.all()
   return render(request, '')
+
+def dogs_detail(request, dog_id):
+  dog = Dog.objects.get(id=dog_id)
+  return render(request, 'dogs/detail.html', { 'dog': dog })
