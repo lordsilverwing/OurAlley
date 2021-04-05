@@ -6,11 +6,32 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from .forms import UserForm
 from django.conf import settings
+import requests
+
+
+# Helper function to convert an address to longitude and latitude
+def extract_lat_long_via_address(address_or_zipcode):
+  lat, lng = None, None
+  # build up the url for the request
+  api_key = settings.GOOGLE_GEOCODE_API_KEY
+  base_url = "https://maps.googleapis.com/maps/api/geocode/json"
+  endpoint = f"{base_url}?address={address_or_zipcode}&key={api_key}"
+  api_response = requests.get(endpoint)
+  response_dict = api_response.json()
+  # successfully got the json, so get the lat and long
+  if response_dict['status'] == 'OK':
+    lat = response_dict['results'][0]['geometry']['location']['lat']
+    lng = response_dict['results'][0]['geometry']['location']['lng']
+  return lat, lng
 
 # Create your views here.
 def home(request):
+  # test code to show how to use geocode and embedded maps
+  lat, lng = extract_lat_long_via_address('345+Chelmsford+Drive+Brentwood+CA')
   context = {
-    'api_key': settings.GOOGLE_MAPS_API_KEY
+    'api_key': settings.GOOGLE_MAPS_API_KEY,
+    'lat': lat,
+    'lng': lng
   }
   return render(request, 'home.html', context)
 

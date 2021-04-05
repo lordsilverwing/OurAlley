@@ -10,6 +10,8 @@
   loading="lazy"
   allowfullscreen
   src="https://www.google.com/maps/embed/v1/place?key={{ api_key }}
-    &q=Creekside+Park,Brentwood+CA">
+    &q={{ lat }}, {{ lng }}">
 </iframe>
+<p>lat: {{lat}}</p>
+<p>lng: {{lng}}</p>
 {% endblock %}
