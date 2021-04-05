@@ -60,6 +60,7 @@ class Profile(models.Model):
     city = models.CharField(max_length=20, blank=True)
     state = models.CharField(max_length=20, blank=True)
     zipcode = models.CharField(max_length=20, blank=True)
+    bio = models.TextField(max_length=300, default='Hello')
     longitude = models.FloatField(default=0)
     latitude = models.FloatField(default=0)
 
@@ -102,6 +103,7 @@ class Playdate(models.Model):
     date = models.DateField('date of play')
     description = models.TextField(max_length=200)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
+    location = models.CharField(max_length=100, default='Home')
 
     def get_absolute_url(self):
         return reverse('play_index')
