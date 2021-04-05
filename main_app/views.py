@@ -87,9 +87,7 @@ class DogDelete(DeleteView):
   model = Dog
   success_url = '/dogs/'
 
-  def form_valid(self, form):
-    form.instance.user = self.request.user
-    return super().form_valid(form)
+  
 
 def playdates_index(request):
   playdates = Playdate.objects.all()
@@ -106,4 +104,3 @@ class CreatePlaydate(LoginRequiredMixin, CreateView):
 def dogs_detail(request, dog_id):
   dog = Dog.objects.get(id=dog_id)
   return render(request, 'dogs/detail.html', { 'dog': dog })
-
