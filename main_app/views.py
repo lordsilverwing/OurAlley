@@ -3,7 +3,7 @@ from django.contrib.auth import login
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 import uuid
 import boto3
-from .models import Dog, Playdate, Invite, Profile, Photo
+from .models import Dog, Playdate, Profile, Photo
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from .forms import UserForm
@@ -11,7 +11,7 @@ from django.conf import settings
 import requests
 from math import radians, cos, sin, asin, sqrt
 
-S3_BASE_URL = 'https://s3.us-west-1.amazonaws.com/'
+S3_BASE_URL = 'https://s3.us-west-1.amazonaws.com/' 
 BUCKET = 'teckcatcollection'
 
 # Haversine equation to caluculate distance between 2 points
@@ -24,7 +24,7 @@ def haversine(lon1, lat1, lon2, lat2):
     dlat = lat2 - lat1 
     a = sin(dlat/2)**2 + cos(lat1) * cos(lat2) * sin(dlon/2)**2
     c = 2 * asin(sqrt(a)) 
-    r = 3956 # Radius of earth in kilometers. Use 3956 for miles
+    r = 3956 # Radius of earth in miles
     return c * r
 
 # Helper function to convert an address to longitude and latitude
@@ -112,7 +112,8 @@ class DogDelete(DeleteView):
 def playdate_detail(request, playdate_id):
   playdate = Playdate.objects.get(id=playdate_id)
   address = playdate.location.replace(' ', '+')
-  return render(request, 'playdates/detail.html', {'playdate': playdate, 'address': address, 'api_key': settings.GOOGLE_MAPS_API_KEY})
+  local_dogs = Dog.objects.filter(playdate=playdate)
+  return render(request, 'playdates/detail.html', {'playdate': playdate, 'local_dogs': local_dogs, 'address': address, 'api_key': settings.GOOGLE_MAPS_API_KEY})
 
 def invite_index(request, playdate_id):
   playdate = Playdate.objects.get(id=playdate_id)
@@ -124,7 +125,19 @@ def invite_index(request, playdate_id):
     # compare the haversine equation of each dog's position to 1 mile
     if haversine(long1, lat1, dog.user.profile.longitude, dog.user.profile.latitude) < 1:
       local_dogs.append(dog)
-  return render(request, 'playdates/invites.html', {'local_dogs': local_dogs})
+  return render(request, 'playdates/invites.html', {'playdate_id': playdate.id, 'local_dogs': local_dogs})
+
+def add_invites(request, playdate_id):
+  playdate = Playdate.objects.get(id=playdate_id)
+  # Add user's dog to playdate first
+  for dog in playdate.user.dog_set.all():
+    dog.playdate_set.add(playdate)
+  # Add all the invited dogs to playdate
+  for item in request.POST:
+    if request.POST[item].isdigit():
+      dog = Dog.objects.get(id=int(request.POST[item]))
+      dog.playdate_set.add(playdate)
+  return redirect('playdate', playdate_id)
 
 def playdates_index(request):
   playdates = Playdate.objects.all()

@@ -16,4 +16,5 @@ urlpatterns = [
     path('playdates/create', views.CreatePlaydate.as_view(), name='add_playdate'),
     path('playdates/<int:playdate_id>/', views.playdate_detail, name='playdate'),
     path('playdates/<int:playdate_id>/invites/', views.invite_index, name='invite_index'),
+    path('playdates/<int:playdate_id>/add_invite/', views.add_invites, name='add_invite'),
 ]
