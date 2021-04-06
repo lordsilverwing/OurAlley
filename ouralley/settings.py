@@ -32,6 +32,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = env('SECRET_KEY')
 GOOGLE_MAPS_API_KEY = env('GOOGLE_MAPS_API_KEY_SECRET')
 GOOGLE_GEOCODE_API_KEY = env('GOOGLE_GEOCODE_KEY')
+S3_BASE_URL = env('S3_BASE_URL')
+BUCKET = env('BUCKET')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True

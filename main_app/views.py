@@ -9,10 +9,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from .forms import UserForm
 from django.conf import settings
 import requests
-from math import radians, cos, sin, asin, sqrt
 
-S3_BASE_URL = 'https://s3.us-west-1.amazonaws.com/' 
-BUCKET = 'teckcatcollection'
 
 # Haversine equation to caluculate distance between 2 points
 def haversine(lon1, lat1, lon2, lat2):
@@ -72,11 +69,6 @@ def signup(request):
       user = form.save()
       # This is how we log a user in via code
       login(request, user)
-      # give profile the lat and long of user's home
-      lat, lng = extract_lat_long_via_address('Home')
-      user.profile.latitude = lat
-      user.profile.longitude = lng
-      user.profile.save()
       return redirect('profile')
     else:
       error_message = 'Invalid sign up - try again'
@@ -143,9 +135,13 @@ def playdates_index(request):
   playdates = Playdate.objects.all()
   return render(request, 'playdates/index.html', {'playdates': playdates})
 
+def add_invite(request):
+  invites = Invite.objects.all()
+  return render(request, '')
+
 class CreatePlaydate(LoginRequiredMixin, CreateView):
   model = Playdate
-  fields = ['time', 'date', 'location', 'description']
+  fields = ['time', 'date', 'description']
 
   def form_valid(self, form):
     form.instance.user = self.request.user
@@ -165,9 +161,9 @@ def add_photo(request, dog_id):
         key = uuid.uuid4().hex[:6] + photo_file.name[photo_file.name.rfind('.'):]
         # just in case something goes wrong
         try:
-            s3.upload_fileobj(photo_file, BUCKET, key)
+            s3.upload_fileobj(photo_file, settings.BUCKET, key)
             # build the full url string
-            url = f"{S3_BASE_URL}{BUCKET}/{key}"
+            url = f"{settings.S3_BASE_URL}{settings.BUCKET}/{key}"
             # we can assign to cat_id or cat (if you have a cat object)
             Photo.objects.create(url=url, dog_id=dog_id)
         except:

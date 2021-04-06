@@ -8,25 +8,39 @@
     <div class="col s6">
         <h2>{{ user.first_name}} {{ user.last_name}}</h2>
         <!-- user description text here -->
-        <p>{{ profile.city }} {{ profile.state }}</p>
+        <h5>{{ user.profile.city }}, {{ user.profile.state }}</h5>
+        <p>{{ user.profile.bio }}</p>
     </div>
 </div>
 
 <div class="top-buffer">
     <h3>My Pets</h3>
 
-    <div class="row">
-        {% for dog in user.dog_set.all %} 
-            <div class="col s3 ">
-                <div class="card">
-                    <img width="175" height="175" src="../../static/images/doggo.png" alt="Image of a dog">
-                    {{ dog.name }}
+    <div class="row center-align">
+        {% for dog in user.dog_set.all %}
+          <div class="col s4">
+            <div class="card small">
+              <a href="/dogs/{{ dog.id }}">
+                <div class="card-image">
+                {% for photo in dog.photo_set.all %}  
+                  <img src="{{photo.url}}" alt="Image of a dog">
+                  {% empty %}
+                  <img src="../../static/images/no-image.png"> 
+                {% endfor %}
                 </div>
+                <div class="card-content center-align black-text">
+                  <h4>
+                   {{dog.name}}
+                  </h4>
+                </div>
+              </a>
             </div>
+          </div>   
         {% endfor %}
+
         <div class="col s3">
             <a href="{% url 'add_dog' %}">
-                <div class="card green lighten-4">
+                <div class="card small green lighten-4">
                     <i class="large white-text material-icons big-i">add</i>
                 </div>  
             </a>
