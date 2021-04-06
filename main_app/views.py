@@ -9,10 +9,23 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from .forms import UserForm
 from django.conf import settings
 import requests
-#These need to be changed to match what you have in the catcollector!
-S3_BASE_URL = 'https://s3.us-east-2.amazonaws.com/' #your server region
-BUCKET = 'shanecats' #name of da bucket
+from math import radians, cos, sin, asin, sqrt
 
+S3_BASE_URL = 'https://s3.us-west-1.amazonaws.com/'
+BUCKET = 'teckcatcollection'
+
+# Haversine equation to caluculate distance between 2 points
+def haversine(lon1, lat1, lon2, lat2):
+    # convert decimal degrees to radians 
+    lon1, lat1, lon2, lat2 = map(radians, [lon1, lat1, lon2, lat2])
+
+    # haversine formula 
+    dlon = lon2 - lon1 
+    dlat = lat2 - lat1 
+    a = sin(dlat/2)**2 + cos(lat1) * cos(lat2) * sin(dlon/2)**2
+    c = 2 * asin(sqrt(a)) 
+    r = 3956 # Radius of earth in kilometers. Use 3956 for miles
+    return c * r
 
 # Helper function to convert an address to longitude and latitude
 def extract_lat_long_via_address(address_or_zipcode):
@@ -59,6 +72,11 @@ def signup(request):
       user = form.save()
       # This is how we log a user in via code
       login(request, user)
+      # give profile the lat and long of user's home
+      lat, lng = extract_lat_long_via_address('Home')
+      user.profile.latitude = lat
+      user.profile.longitude = lng
+      user.profile.save()
       return redirect('profile')
     else:
       error_message = 'Invalid sign up - try again'
@@ -96,13 +114,21 @@ def playdate_detail(request, playdate_id):
   address = playdate.location.replace(' ', '+')
   return render(request, 'playdates/detail.html', {'playdate': playdate, 'address': address, 'api_key': settings.GOOGLE_MAPS_API_KEY})
 
+def invite_index(request, playdate_id):
+  playdate = Playdate.objects.get(id=playdate_id)
+  long1 = request.user.profile.longitude
+  lat1 = request.user.profile.latitude
+  local_dogs = []
+  other_dogs = Dog.objects.exclude(user=request.user)
+  for dog in other_dogs:
+    # compare the haversine equation of each dog's position to 1 mile
+    if haversine(long1, lat1, dog.user.profile.longitude, dog.user.profile.latitude) < 1:
+      local_dogs.append(dog)
+  return render(request, 'playdates/invites.html', {'local_dogs': local_dogs})
+
 def playdates_index(request):
   playdates = Playdate.objects.all()
   return render(request, 'playdates/index.html', {'playdates': playdates})
-
-def add_invite(request):
-  invites = Invite.objects.all()
-  return render(request, '')
 
 class CreatePlaydate(LoginRequiredMixin, CreateView):
   model = Playdate

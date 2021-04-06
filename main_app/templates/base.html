@@ -24,6 +24,7 @@
                     <li><a href="{% url 'about' %}">About</a></li>
                     {% if user.is_authenticated %}
                         <li><a href="{% url 'index' %}">View Local Dogs</a></li>
+                        <li><a href="{% url 'play_index' %}">View Playdates</a></li>
                         <li><a href="{% url 'add_playdate' %}">Make A Playdate</a></li>
                         <li><a href="{% url 'profile' %}">My Profile</a></li>
                         <li><a href="{% url 'logout' %}">Log Out</a></li>
