@@ -104,17 +104,10 @@ class Playdate(models.Model):
     description = models.TextField(max_length=200)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     location = models.CharField(max_length=100, default='Home')
+    dogs = models.ManyToManyField(Dog)
 
     def get_absolute_url(self):
         return reverse('play_index')
-
-class Invite(models.Model):
-    response = models.IntegerField(
-        choices=RESPONSE,
-        default=RESPONSE[2][0]
-    )
-    dog = models.ForeignKey(Dog, on_delete=models.CASCADE)
-    playdate = models.ForeignKey(Playdate, on_delete=models.CASCADE)
 
 class Photo(models.Model):
     url = models.CharField(max_length=200)

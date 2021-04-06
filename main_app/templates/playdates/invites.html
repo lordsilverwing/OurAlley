@@ -1,11 +1,33 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<h1>Invites</h1>
+<h3>Invite A Local Dog</h3>
+<br>
+<p>Your dogs will automatically be included</p>
+<br>
+
 {% if local_dogs %} 
-  {% for dog in local_dogs %} 
-    <h5>{{dog.name}}</h5>
-  {% endfor %} 
+  <form action="/playdates/{{ playdate_id }}/add_invite/" method="POST">
+    {% csrf_token %}
+    <div class="row">
+      {% for dog in local_dogs %} 
+      <label>
+        <input type="checkbox" value="{{dog.id}}" name="{{dog.id}}">
+        <span class="invite-card">
+          <div class="card hoverable">
+            <div class="card-content">
+              <h5>{{dog.name}}</h5>
+              <p>Owner: {{dog.user.username}}</p>
+            </div>
+          </div>
+        </span>
+      </label>
+      {% endfor %} 
+    </div>
+    <div class="row top-buffer">
+      <input type="submit" class="btn" value="Submit">
+    </div>
+  </form>
 {% else %} 
   <p>There are no local dogs around you</p>
 {% endif %} 

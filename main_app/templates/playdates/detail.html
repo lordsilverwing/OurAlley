@@ -24,6 +24,16 @@
         </a>
     </div>
 </div>
+<div class="row top-buffer">
+    <h4>Invited Dogs</h4>
+    {% if local_dogs %}
+        {% for dog in local_dogs %} 
+            <p>{{ dog.name }}</p>
+        {% endfor %} 
+    {% else %} 
+        <p>There are no dogs invited yet</p>
+    {% endif %}
+</div>
 
 
 
