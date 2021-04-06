@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h1>Invites</h1>
+{% if local_dogs %} 
+  {% for dog in local_dogs %} 
+    <h5>{{dog.name}}</h5>
+  {% endfor %} 
+{% else %} 
+  <p>There are no local dogs around you</p>
+{% endif %} 
+{% endblock %} 

@@ -1,24 +1,30 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<div class="card">
-<div class="card-content">
+<div class="row top-buffer">
     <iframe
-    width="600"
-    height="450"
-    style="border:0"
-    loading="lazy"
-    allowfullscreen
-    src="https://www.google.com/maps/embed/v1/place?key={{ api_key }}
-        &q={{ address }}">
+        class="col s6"
+        width="600"
+        height="450"
+        style="border:0"
+        loading="lazy"
+        allowfullscreen
+        src="https://www.google.com/maps/embed/v1/place?key={{ api_key }}
+            &q={{ address }}">
     </iframe>
-    <span class="card-title">{{ playdate.location }}</span>
-    <p>Time: {{ playdate.get_time_display }}</p>
-    <p>Date: {{ playdate.date }}</p>
-    <p>Description: {{ playdate.description }}</p>
-    <p>User: {{ playdate.user }}</p>
 
+    <div class="col s6">
+        <h4><span class="card-title">{{ playdate.location }}</span></h4>
+        <p>Time: {{ playdate.get_time_display }}</p>
+        <p>Date: {{ playdate.date }}</p>
+        <p>Description: {{ playdate.description }}</p>
+        <p>Playdate Created By: {{ playdate.user }}</p>
+        <a href="/playdates/{{ playdate.id }}/invites">
+            <div class="chip green lighten-1 white-text hoverable">Invite A Dog</div>
+        </a>
+    </div>
 </div>
-</div>
+
+
 
 {% endblock %}
