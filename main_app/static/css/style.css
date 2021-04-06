@@ -38,3 +38,20 @@ footer.page-footer {
 .invite-card {
   width: 100%;
 }
+
+nav {
+  -webkit-text-stroke-width: 1px;
+  -webkit-text-stroke-color: black;
+}
+
+#brandlogo {
+  font-size:xx-large;
+  font-weight: bold;
+}
+
+#card-name {
+  font-size: xx-large;
+  font-weight: bold;
+  -webkit-text-stroke-width: 1px;
+  -webkit-text-stroke-color: black;
+}

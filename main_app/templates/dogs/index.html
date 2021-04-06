@@ -2,16 +2,20 @@
 {% block content %}
 
 <h1 class="center-align" >List of All Dogs</h1>
-<div class="row center-cols center-align">
+<div class="row center-align">
 {% for dog in dogs %}
-  <div class="col m5">
+  <div class="col s4">
     <div class="card small">
       <a href="/dogs/{{ dog.id }}">
         <div class="card-image">
-          <img src="../../static/images/doggo.png" alt="Image of a dog">
-          <span class="card-title">{{ dog.name }}</span>
+        {% for photo in dog.photo_set.all %}  
+          <img src="{{photo.url}}" alt="Image of a dog">
+          {% empty %}
+          <img src="../../static/images/no-image.png"> 
+        {% endfor %}
+          <span class="card-title" id="card-name">{{ dog.name }}</span>
         </div>
-        <div class="card-content center-align">
+        <div class="card-content center-align black-text">
           <h6>
             My name is {{dog.name}}!
             Click on me if you want to play!
