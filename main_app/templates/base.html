@@ -15,6 +15,10 @@
 
 <body>
     <header class="navbar-fixed">
+        <ul id="playdate" class="dropdown-content">
+            <li><a href="{% url 'play_index' %}">View Playdates</a></li>
+            <li><a href="{% url 'add_playdate' %}">Make A Playdate</a></li>
+        </ul>
         <nav>
             <div class="nav-wrapper green lighten-2">
                 <ul class="left">
@@ -22,8 +26,7 @@
                     <li><a href="{% url 'about' %}">About</a></li>
                     {% if user.is_authenticated %}
                         <li><a href="{% url 'index' %}">View Local Dogs</a></li>
-                        <li><a href="{% url 'play_index' %}">View Playdates</a></li>
-                        <li><a href="{% url 'add_playdate' %}">Make A Playdate</a></li>
+                        <li><a class="dropdown-trigger"  href="" data-target="playdate">Playdates<i class="material-icons right">arrow_drop_down</i></a></li>
                 </ul>
                 <ul class="right">
                     
@@ -49,5 +52,14 @@
         <div class="right">All Rights Reserved, &copy; 2021 Our Alley &nbsp;</div>
     </footer>
 </body>
-
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+    var dropdown1 = document.querySelector('.dropdown-trigger');
+    var dropdownOptions = {
+        'closeOnClick': true,
+        'hover':false,
+    }
+    var instanceDropdown1 = M.Dropdown.init(dropdown1, dropdownOptions);
+});
+</script>
 </html>

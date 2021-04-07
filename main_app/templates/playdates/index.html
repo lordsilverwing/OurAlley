@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<h4>All Your Playdates</h4>
+<h1 class="center-align">Playdates!</h1>
 
 {% if playdates %}
   {% for playdate in playdates %}
@@ -33,11 +33,11 @@
     </div>
   {% endfor %}
 {% else %} 
-  <p>You have not created any playdates.</p>
+  <p class="center-align">You have not created any playdates.</p>
 {% endif %}
 
 
-<h4>Invites To Playdates</h4>
+<h4 class="center-align">Invites To Playdates</h4>
 
 {% if invites %} 
   {% for playdate in invites %}
@@ -55,11 +55,13 @@
             <span class="card-title green-text lighten-2">Dogs Going Already:</span>
             {% for dog in playdate.dogs.all %} 
               <div class="chip">
-                {% for photo in dog.photo_set.all %}  
-                    <img src="{{photo.url}}" alt="Image of a dog">
-                    {% empty %}
-                    <img src="../../static/images/no-image.png"> 
-                {% endfor %}
+                {%with dog.photo_set.all|first as image %}
+                  {% if image.url != Null %}  
+                      <img src="{{image.url}}" alt="Image of a dog">
+                  {% else %}
+                    <img src="../../static/images/no-image.png">
+                  {% endif %}
+              {% endwith %}
                 {{ dog.name }}
               </div>
             {% endfor %} 
@@ -69,7 +71,7 @@
     </div>
   {% endfor %}
 {% else %} 
-  <p>Your dogs have not invites at this moment.</p>
+  <p class="center-align">Your dogs have not invites at this moment.</p>
 {% endif %}
 
 {% endblock %}
