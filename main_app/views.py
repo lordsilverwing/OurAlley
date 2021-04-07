@@ -11,6 +11,7 @@ from django.conf import settings
 import requests
 from math import radians, cos, sin, asin, sqrt
 from django.contrib.messages.views import SuccessMessageMixin
+from django.contrib import messages
 
 
 # Haversine equation to caluculate distance between 2 points
@@ -114,10 +115,14 @@ class DogUpdate(SuccessMessageMixin, UpdateView):
   success_message = 'Dog was successfully updated'
   
 
-class DogDelete(SuccessMessageMixin, DeleteView):
+class DogDelete(DeleteView):
   model = Dog
-  success_url = '/dogs/'
+  success_url = '/accounts/profile/'
   success_message = 'Dog was successfully removed'
+
+  def delete(self, request, *args, **kwargs):
+        messages.success(self.request, self.success_message)
+        return super().delete(request, *args, **kwargs)
 
 def playdate_detail(request, playdate_id):
   playdate = Playdate.objects.get(id=playdate_id)
