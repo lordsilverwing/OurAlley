@@ -145,8 +145,17 @@ def add_invites(request, playdate_id):
   return redirect('playdate', playdate_id)
 
 def playdates_index(request):
-  playdates = Playdate.objects.all()
-  return render(request, 'playdates/index.html', {'playdates': playdates})
+  # these are the playdates the user made
+  playdates = Playdate.objects.filter(user=request.user)
+  # these ate the playdates the user's dogs were invited to
+  invites = []
+  dogs = Dog.objects.filter(user=request.user)
+  for dog in dogs:
+    # Get EVERY playdate that user's dogs are invited to
+    [invites.append(playdate) for playdate in dog.playdate_set.all() if playdate not in invites]
+    #  Remove the playdates the the user made
+    [invites.remove(playdate) for playdate in invites if playdate in playdates]
+  return render(request, 'playdates/index.html', {'playdates': playdates, 'invites': invites})
 
 def add_invite(request):
   invites = Invite.objects.all()

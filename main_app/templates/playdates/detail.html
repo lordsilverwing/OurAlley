@@ -14,11 +14,11 @@
     </iframe>
 
     <div class="col s6">
-        <h4><span class="card-title">{{ playdate.location }}</span></h4>
-        <p>Time: {{ playdate.get_time_display }}</p>
-        <p>Date: {{ playdate.date }}</p>
-        <p>Description: {{ playdate.description }}</p>
-        <p>Playdate Created By: {{ playdate.user }}</p>
+        <h4><span class="card-title green-text lighten-2">{{ playdate.location }}</span></h4>
+        <p><strong>Time:</strong> {{ playdate.get_time_display }}</p>
+        <p><strong>Date:</strong> {{ playdate.date }}</p>
+        <p><strong>Description:</strong> {{ playdate.description }}</p>
+        <p><strong>Playdate Created By:</strong> {{ playdate.user }}</p>
         <a href="/playdates/{{ playdate.id }}/invites">
             <div class="chip green lighten-1 white-text hoverable">Invite A Dog</div>
         </a>
@@ -26,13 +26,26 @@
 </div>
 <div class="row top-buffer">
     <h4>Invited Dogs</h4>
-    {% if local_dogs %}
-        {% for dog in local_dogs %} 
-            <p>{{ dog.name }}</p>
-        {% endfor %} 
-    {% else %} 
-        <p>There are no dogs invited yet</p>
-    {% endif %}
+    <div class="row center-align">
+        {% for dog in local_dogs %}
+          <div class="col s4">
+            <div class="card small">
+                <div class="card-image">
+                {% for photo in dog.photo_set.all %}  
+                    <img src="{{photo.url}}" alt="Image of a dog">
+                    {% empty %}
+                    <img src="../../static/images/no-image.png"> 
+                {% endfor %}
+                </div>
+                <div class="card-content center-align black-text">
+                    <h4>
+                    {{dog.name}}
+                    </h4>
+                </div>
+            </div>
+          </div>   
+        {% endfor %}
+    </div>
 </div>
 
 

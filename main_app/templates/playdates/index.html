@@ -3,29 +3,73 @@
 
 <h4>All Your Playdates</h4>
 
-{% for playdate in playdates %}
-  <div class="card">
-    <a href="{% url 'playdate' playdate.id %}">
-      <div class="card-content row">
-        <div class="col s6">
-          <span class="card-title">{{ playdate.location }}</span>
-          <p>Time: {{ playdate.get_time_display }}</p>
-          <p>Date: {{ playdate.date }}</p>
-          <p>Description: {{ playdate.description }}</p>
-          <p>User: {{ playdate.user }}</p>
+{% if playdates %}
+  {% for playdate in playdates %}
+    <div class="card hoverable">
+      <a href="{% url 'playdate' playdate.id %}">
+        <div class="card-content row">
+          <div class="col s6">
+            <span class="card-title green-text lighten-2">{{ playdate.location }}</span>
+            <p class="black-text"><strong>Time:</strong> {{ playdate.get_time_display }}</p>
+            <p class="black-text"><strong>Date:</strong> {{ playdate.date }}</p>
+            <p class="black-text"><strong>Description:</strong> {{ playdate.description }}</p>
+            <p class="black-text"><strong>User:</strong> {{ playdate.user }}</p>
+          </div>
+          <div class="col s6">
+            <span class="card-title green-text lighten-2">Dogs Going Already:</span>
+            {% for dog in playdate.dogs.all %} 
+              <div class="chip">
+                {% for photo in dog.photo_set.all %}  
+                    <img src="{{photo.url}}" alt="Image of a dog">
+                    {% empty %}
+                    <img src="../../static/images/no-image.png"> 
+                {% endfor %}
+                {{ dog.name }}
+              </div>
+            {% endfor %} 
+          </div>
         </div>
-        <div class="col s6">
-          <span class="card-title">Dogs Going Already:</span>
-          {% for dog in playdate.dogs.all %} 
-            <div class="chip">
-              <img src="../../static/images/doggo.png" alt="Doggo">
-              {{ dog.name }}
-            </div>
-          {% endfor %} 
+      </a>
+    </div>
+  {% endfor %}
+{% else %} 
+  <p>You have not created any playdates.</p>
+{% endif %}
+
+
+<h4>Invites To Playdates</h4>
+
+{% if invites %} 
+  {% for playdate in invites %}
+    <div class="card hoverable">
+      <a href="{% url 'playdate' playdate.id %}">
+        <div class="card-content row">
+          <div class="col s6">
+            <span class="card-title green-text lighten-2">{{ playdate.location }}</span>
+            <p class="black-text"><strong>Time:</strong> {{ playdate.get_time_display }}</p>
+            <p class="black-text"><strong>Date:</strong> {{ playdate.date }}</p>
+            <p class="black-text"><strong>Description:</strong> {{ playdate.description }}</p>
+            <p class="black-text"><strong>User:</strong> {{ playdate.user }}</p>
+          </div>
+          <div class="col s6">
+            <span class="card-title green-text lighten-2">Dogs Going Already:</span>
+            {% for dog in playdate.dogs.all %} 
+              <div class="chip">
+                {% for photo in dog.photo_set.all %}  
+                    <img src="{{photo.url}}" alt="Image of a dog">
+                    {% empty %}
+                    <img src="../../static/images/no-image.png"> 
+                {% endfor %}
+                {{ dog.name }}
+              </div>
+            {% endfor %} 
+          </div>
         </div>
-      </div>
-    </a>
-  </div>
-{% endfor %}
+      </a>
+    </div>
+  {% endfor %}
+{% else %} 
+  <p>Your dogs have not invites at this moment.</p>
+{% endif %}
 
 {% endblock %}
