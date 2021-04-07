@@ -10,6 +10,7 @@ from .forms import UserForm
 from django.conf import settings
 import requests
 from math import radians, cos, sin, asin, sqrt
+from django.contrib.messages.views import SuccessMessageMixin
 
 
 # Haversine equation to caluculate distance between 2 points
@@ -84,10 +85,11 @@ def dogs_index(request):
     dogs = Dog.objects.all()
     return render(request, 'dogs/index.html', { 'dogs': dogs })
 
-class ProfileUpdate(UpdateView):
+class ProfileUpdate(SuccessMessageMixin, UpdateView):
   model = Profile
   fields = ['address', 'city', 'state', 'zipcode', 'bio']
   success_url = '/accounts/profile/'
+  success_message = 'Profile was successfully updated'
 
   # convert the user's address into latitude and longitude
   def form_valid(self, form):
@@ -96,23 +98,26 @@ class ProfileUpdate(UpdateView):
     form.instance.longitude, form.instance.latitude = extract_lat_long_via_address(position)
     return super().form_valid(form)
 
-class CreateDog(LoginRequiredMixin, CreateView):
+class CreateDog(SuccessMessageMixin, LoginRequiredMixin, CreateView):
   model = Dog
   fields = ['name', 'breed', 'size', 'age', 'description']
   success_url = '/accounts/profile/'
+  success_message = 'Dog was successfully added'
 
   def form_valid(self, form):
     form.instance.user = self.request.user
     return super().form_valid(form)
 
-class DogUpdate(UpdateView):
+class DogUpdate(SuccessMessageMixin, UpdateView):
   model = Dog
   fields = ['breed', 'description', 'age', 'size']
+  success_message = 'Dog was successfully updated'
   
 
-class DogDelete(DeleteView):
+class DogDelete(SuccessMessageMixin, DeleteView):
   model = Dog
   success_url = '/dogs/'
+  success_message = 'Dog was successfully removed'
 
 def playdate_detail(request, playdate_id):
   playdate = Playdate.objects.get(id=playdate_id)

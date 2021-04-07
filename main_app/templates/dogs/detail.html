@@ -41,7 +41,13 @@
                 <a href="{% url 'dogs_delete' dog.id %}">Delete</a>
             </div>
         </div>  
-   
+        {% if messages %}
+          <ul class="messages left">
+            {% for message in messages %}
+            <li class="flash chip left">{{ message }} <i class="material-icons close">close</i> </li>
+            {% endfor %}
+          </ul>
+        {% endif %}
     </div>
 
 </div>
