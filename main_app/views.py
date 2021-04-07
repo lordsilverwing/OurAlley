@@ -9,6 +9,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from .forms import UserForm
 from django.conf import settings
 import requests
+from math import radians, cos, sin, asin, sqrt
 
 
 # Haversine equation to caluculate distance between 2 points
