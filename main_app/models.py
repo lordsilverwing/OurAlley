@@ -11,12 +11,6 @@ DOGSIZE = (
     ('G', 'Giant')
 )
 
-RESPONSE = (
-    (0, 'Decline'),
-    (1, 'Accept'),
-    (2, 'Tentative')
-)
-
 TIMES = (
     ('0', '6:00am'),
     ('1', '6:30am'),
