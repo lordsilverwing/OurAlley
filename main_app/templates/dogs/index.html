@@ -8,11 +8,13 @@
     <div class="card small">
       <a href="/dogs/{{ dog.id }}">
         <div class="card-image">
-        {% for photo in dog.photo_set.all %}  
-          <img src="{{photo.url}}" alt="Image of a dog">
-          {% empty %}
-          <img src="../../static/images/no-image.png"> 
-        {% endfor %}
+        {%with dog.photo_set.all|first as image %}
+          {% if image.url != Null %}  
+              <img src="{{image.url}}" alt="Image of a dog">
+          {% else %}
+              <img src="../../static/images/no-image.png">
+          {% endif %}
+        {% endwith %}
           <span class="card-title" id="card-name">{{ dog.name }}</span>
         </div>
         <div class="card-content center-align black-text">

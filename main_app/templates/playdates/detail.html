@@ -24,27 +24,28 @@
         </a>
     </div>
 </div>
-<div class="row top-buffer">
-    <h4>Invited Dogs</h4>
-    <div class="row center-align">
-        {% for dog in local_dogs %}
-          <div class="col s4">
-            <div class="card small">
-                <div class="card-image">
-                {% for photo in dog.photo_set.all %}  
-                    <img src="{{photo.url}}" alt="Image of a dog">
-                    {% empty %}
-                    <img src="../../static/images/no-image.png"> 
-                {% endfor %}
+    <div class="row top-buffer">
+        <h4>Invited Dogs</h4>
+        {% if local_dogs %}
+            {% for dog in local_dogs %} 
+            <div class="col s3 ">
+                <a href="/dogs/{{ dog.id }}">
+                <div class="card">
+                    {%with dog.photo_set.all|first as image %}
+                        {% if image.url != Null %}  
+                            <img width="175" height="175" src="{{image.url}}" alt="Image of a dog">
+                        {% else %}
+                            <img width="175" height="175" src="../../static/images/no-image.png">
+                        {% endif %}
+                    {% endwith %}
+                    {{ dog.name }}
                 </div>
-                <div class="card-content center-align black-text">
-                    <h4>
-                    {{dog.name}}
-                    </h4>
-                </div>
+               </a> 
             </div>
-          </div>   
-        {% endfor %}
+            {% endfor %} 
+        {% else %} 
+            <p>There are no dogs invited yet</p>
+        {% endif %}
     </div>
 </div>
 
