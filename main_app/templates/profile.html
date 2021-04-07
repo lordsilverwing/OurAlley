@@ -10,6 +10,7 @@
         <!-- user description text here -->
         <h5>{{ user.profile.city }}, {{ user.profile.state }}</h5>
         <p>{{ user.profile.bio }}</p>
+        <a class="green-text lighten-2 right" href="{% url 'profile_update' user.profile.id %}">edit</a>
     </div>
 </div>
 

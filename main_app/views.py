@@ -70,7 +70,8 @@ def signup(request):
       user = form.save()
       # This is how we log a user in via code
       login(request, user)
-      return redirect('profile')
+      # Send new user to profile update for their address and bio
+      return redirect('profile_update', request.user.profile.id)
     else:
       error_message = 'Invalid sign up - try again'
   # A bad POST or a GET request, so render signup.html with an empty form
@@ -83,6 +84,18 @@ def dogs_index(request):
     dogs = Dog.objects.all()
     return render(request, 'dogs/index.html', { 'dogs': dogs })
 
+class ProfileUpdate(UpdateView):
+  model = Profile
+  fields = ['address', 'city', 'state', 'zipcode', 'bio']
+  success_url = '/accounts/profile/'
+
+  # convert the user's address into latitude and longitude
+  def form_valid(self, form):
+    position = form.instance.address.replace(' ', '+')
+    position += '+' + form.instance.city + '+' + form.instance.state
+    form.instance.longitude, form.instance.latitude = extract_lat_long_via_address(position)
+    return super().form_valid(form)
+
 class CreateDog(LoginRequiredMixin, CreateView):
   model = Dog
   fields = ['name', 'breed', 'size', 'age', 'description']
@@ -91,7 +104,6 @@ class CreateDog(LoginRequiredMixin, CreateView):
   def form_valid(self, form):
     form.instance.user = self.request.user
     return super().form_valid(form)
-
 
 class DogUpdate(UpdateView):
   model = Dog
@@ -133,8 +145,17 @@ def add_invites(request, playdate_id):
   return redirect('playdate', playdate_id)
 
 def playdates_index(request):
-  playdates = Playdate.objects.all()
-  return render(request, 'playdates/index.html', {'playdates': playdates})
+  # these are the playdates the user made
+  playdates = Playdate.objects.filter(user=request.user)
+  # these ate the playdates the user's dogs were invited to
+  invites = []
+  dogs = Dog.objects.filter(user=request.user)
+  for dog in dogs:
+    # Get EVERY playdate that user's dogs are invited to
+    [invites.append(playdate) for playdate in dog.playdate_set.all() if playdate not in invites]
+    #  Remove the playdates the the user made
+    [invites.remove(playdate) for playdate in invites if playdate in playdates]
+  return render(request, 'playdates/index.html', {'playdates': playdates, 'invites': invites})
 
 def add_invite(request):
   invites = Invite.objects.all()
