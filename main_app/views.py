@@ -10,6 +10,7 @@ from .forms import UserForm
 from django.conf import settings
 import requests
 from math import radians, cos, sin, asin, sqrt
+from django.contrib.messages.views import SuccessMessageMixin
 
 
 # Haversine equation to caluculate distance between 2 points
@@ -84,10 +85,11 @@ def dogs_index(request):
     dogs = Dog.objects.all()
     return render(request, 'dogs/index.html', { 'dogs': dogs })
 
-class ProfileUpdate(UpdateView):
+class ProfileUpdate(SuccessMessageMixin, UpdateView):
   model = Profile
   fields = ['address', 'city', 'state', 'zipcode', 'bio']
   success_url = '/accounts/profile/'
+  success_message = 'Profile was successfully updated'
 
   # convert the user's address into latitude and longitude
   def form_valid(self, form):

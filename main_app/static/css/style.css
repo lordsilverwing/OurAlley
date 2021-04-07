@@ -9,6 +9,14 @@ main {
   flex: 1 0 auto;
 }
 
+.profile-info {
+  position: relative;
+}
+
+.flash {
+  position: absolute;
+}
+
 footer.page-footer {
   padding-top: 0;
   text-align: right;
