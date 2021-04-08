@@ -26,19 +26,34 @@
 
     <div class="row center-align">
         {% for dog in user.dog_set.all %} 
-        <div class="col s3 ">
-            <a href="/dogs/{{ dog.id }}">
-            <div class="card">
-                {%with dog.photo_set.all|first as image %}
+        <div class="col s4 ">
+            <div class="card small">
+                <a href="/dogs/{{ dog.id }}">
+                  <div class="card-image">
+                  {%with dog.photo_set.all|first as image %}
                     {% if image.url != Null %}  
-                        <img width="175" height="175" src="{{image.url}}" alt="Image of a dog">
+                        <img src="{{image.url}}" alt="Image of a dog">
                     {% else %}
-                        <img width="175" height="175" src="../../static/images/no-image.png">
+                        <img src="../../static/images/no-image.png">
                     {% endif %}
-                {% endwith %}
-                {{ dog.name }}
-            </div>
-            </a>
+                  {% endwith %}
+                    <span class="card-title" id="card-name">{{ dog.name }}</span>
+                  </div>
+                  <div class="card-content center-align">
+                    <div class="card-action">
+                        <form action="{% url 'add_photo' dog.id %}" enctype="multipart/form-data" method="POST">
+                            {% csrf_token %}
+                            <input type="file" name="photo-file">
+                            <br>
+                            <input type="submit" class="btn-small" value="Upload Photo">
+                          </form>
+                          <br>
+                        <a href="{% url 'dogs_update' dog.id %}">Edit</a>
+                        <a href="{% url 'dogs_delete' dog.id %}">Delete</a>
+                    </div>
+                  </div>
+                </a>
+              </div>
         </div>
         {% endfor %}
 

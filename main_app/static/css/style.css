@@ -63,3 +63,11 @@ nav {
   -webkit-text-stroke-width: 1px;
   -webkit-text-stroke-color: black;
 }
+
+.carousel .indicators .indicator-item.active{
+  background-color: black
+}
+
+.carousel .indicators .indicator-item{
+  background-color: grey;
+}
