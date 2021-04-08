@@ -86,7 +86,23 @@ def signup(request):
 @login_required
 def dogs_index(request):
     dogs = Dog.objects.all()
-    return render(request, 'dogs/index.html', { 'dogs': dogs })
+    # If user entered a new location, use it
+    if request.method == 'POST':
+      location = request.POST.get('location')
+      long1, lat1 = extract_lat_long_via_address(location)
+    else:
+      # Otherwise use their home address
+      location = request.user.profile.address + ' ' + request.user.profile.city + ', ' + request.user.profile.state
+      long1 = request.user.profile.longitude
+      lat1 = request.user.profile.latitude
+    local_dogs = []
+    other_dogs = Dog.objects.exclude(user=request.user)
+    for dog in other_dogs:
+      # compare the haversine equation of each dog's position to 2 miles
+      if haversine(long1, lat1, dog.user.profile.longitude, dog.user.profile.latitude) < 2:
+        local_dogs.append(dog)
+    return render(request, 'dogs/index.html', { 'local_dogs': local_dogs, 'location': location })
+
 
 class ProfileUpdate(SuccessMessageMixin, UpdateView):
   model = Profile
@@ -139,8 +155,8 @@ def invite_index(request, playdate_id):
   local_dogs = []
   other_dogs = Dog.objects.exclude(user=request.user)
   for dog in other_dogs:
-    # compare the haversine equation of each dog's position to 1 mile
-    if haversine(long1, lat1, dog.user.profile.longitude, dog.user.profile.latitude) < 1:
+    # compare the haversine equation of each dog's position to 2 mile
+    if haversine(long1, lat1, dog.user.profile.longitude, dog.user.profile.latitude) < 2:
       local_dogs.append(dog)
   return render(request, 'playdates/invites.html', {'playdate_id': playdate.id, 'local_dogs': local_dogs})
 
