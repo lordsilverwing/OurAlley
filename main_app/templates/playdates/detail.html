@@ -19,7 +19,7 @@
         <p><strong>Date:</strong> {{ playdate.date }}</p>
         <p><strong>Description:</strong> {{ playdate.description }}</p>
         <p><strong>Playdate Created By:</strong> {{ playdate.user }}</p>
-        <a href="/playdates/{{ playdate.id }}/invites">
+        <a href="{% url 'invite_index' playdate.id %}">
             <div class="chip green lighten-1 white-text hoverable">Invite A Dog</div>
         </a>
     </div>
@@ -29,7 +29,7 @@
         {% if local_dogs %}
             {% for dog in local_dogs %} 
             <div class="col s3 ">
-                <a href="/dogs/{{ dog.id }}">
+                <a href="{% url 'detail' dog.id %}">
                 <div class="card">
                     {%with dog.photo_set.all|first as image %}
                         {% if image.url != Null %}  

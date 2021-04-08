@@ -7,7 +7,7 @@
 <br>
 
 {% if local_dogs %} 
-  <form action="/playdates/{{ playdate_id }}/add_invite/" method="POST">
+  <form action="{% url 'add_invite' playdate_id %}" method="POST">
     {% csrf_token %}
     <div class="row">
       {% for dog in local_dogs %} 
