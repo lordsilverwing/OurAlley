@@ -193,6 +193,10 @@ class CreatePlaydate(LoginRequiredMixin, CreateView):
   model = Playdate
   fields = ['time', 'date', 'description']
 
+  def form_valid(self, form):
+    form.instance.user = self.request.user
+    return super().form_valid(form)
+
 class UpdatePlaydate(UpdateView):
   model = Playdate
   fields = ['time']
@@ -200,10 +204,6 @@ class UpdatePlaydate(UpdateView):
 class DeletePlaydate(DeleteView):
   model = Playdate
   success_url = '/playdates/'
-
-  def form_valid(self, form):
-    form.instance.user = self.request.user
-    return super().form_valid(form)
 
 def dogs_detail(request, dog_id):
   dog = Dog.objects.get(id=dog_id)
