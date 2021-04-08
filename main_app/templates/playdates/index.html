@@ -5,6 +5,9 @@
 
 {% if playdates %}
   {% for playdate in playdates %}
+    <a class="green-text lighten-3" href="{% url 'playdates_update' playdate.id %}">Edit</a>
+    <a class="green-text lighten-3" href="{% url 'playdates_delete' playdate.id %}">Delete</a>
+   
     <div class="card hoverable">
       <a href="{% url 'playdate' playdate.id %}">
         <div class="card-content row">
@@ -14,10 +17,7 @@
             <p class="black-text"><strong>Date:</strong> {{ playdate.date }}</p>
             <p class="black-text"><strong>Description:</strong> {{ playdate.description }}</p>
             <p class="black-text"><strong>User:</strong> {{ playdate.user }}</p>
-            <div class="card-action">
-              <a href="{% url 'playdates_update' playdate.id %}">Edit</a>
-              <a href="{% url 'playdates_delete' playdate.id %}">Delete</a>
-            </div>
+            
           </div>
           <div class="col s6">
             <span class="card-title green-text lighten-2">Dogs Going Already:</span>
@@ -37,6 +37,7 @@
         </div>
       </a>
     </div>
+    
   {% endfor %}
 {% else %} 
   <p class="center-align">You have not created any playdates.</p>
@@ -77,7 +78,7 @@
     </div>
   {% endfor %}
 {% else %} 
-  <p class="center-align">Your dogs have not invites at this moment.</p>
+  <p class="center-align">Your dogs have no invites at this moment.</p>
 {% endif %}
 
 {% endblock %}
