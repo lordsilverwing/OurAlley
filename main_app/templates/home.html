@@ -1,9 +1,19 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<h1 class="center-align">Welcome to OurAlley</h1>
-<h4 class="center-align">Where dogs come to socialize</h4>
-<img id="homedogs" src="../../static/images/dogsplaying.jpeg" alt="Image of two dogs">
+<div class="green lighten-3 full-body">
+    <div class="relative center-align">
+        <img class="responsive-img center" src="../../static/images/dogsplaying.jpeg" alt="Image of two dogs">
+        <h2 class="absolute white-text">Where dogs come to socialize</h2>
+    </div>
 
+    <div class="center top-buffer">
+        <h5 class="white-text">Find local dogs nearby!</h5>
+        <a href="" class="btn grey lighten-1 waves-effect waves-light">Sign Up</a>
+        <p class="grey-text">Already have an account?</p>
+        <a href="" class="btn grey lighten-1">Logn In</a>
+    </div>
+
+</div>
 
 {% endblock %}
