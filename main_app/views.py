@@ -14,6 +14,8 @@ from django.contrib.messages.views import SuccessMessageMixin
 from django.contrib import messages
 
 
+
+
 # Haversine equation to caluculate distance between 2 points
 def haversine(lon1, lat1, lon2, lat2):
     # convert decimal degrees to radians 
@@ -174,6 +176,14 @@ def add_invite(request):
 class CreatePlaydate(LoginRequiredMixin, CreateView):
   model = Playdate
   fields = ['time', 'date', 'description']
+
+class UpdatePlaydate(UpdateView):
+  model = Playdate
+  fields = ['time']
+
+class DeletePlaydate(DeleteView):
+  model = Playdate
+  success_url = '/playdates/'
 
   def form_valid(self, form):
     form.instance.user = self.request.user
