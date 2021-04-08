@@ -104,7 +104,7 @@ def dogs_index(request):
     return render(request, 'dogs/index.html', { 'local_dogs': local_dogs, 'location': location })
 
 
-class ProfileUpdate(SuccessMessageMixin, UpdateView):
+class ProfileUpdate(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
   model = Profile
   fields = ['address', 'city', 'state', 'zipcode', 'bio']
   success_url = '/accounts/profile/'
@@ -117,7 +117,7 @@ class ProfileUpdate(SuccessMessageMixin, UpdateView):
     form.instance.longitude, form.instance.latitude = extract_lat_long_via_address(position)
     return super().form_valid(form)
 
-class CreateDog(SuccessMessageMixin, LoginRequiredMixin, CreateView):
+class CreateDog(LoginRequiredMixin, SuccessMessageMixin, CreateView):
   model = Dog
   fields = ['name', 'breed', 'size', 'age', 'description']
   success_url = '/accounts/profile/'
@@ -127,13 +127,14 @@ class CreateDog(SuccessMessageMixin, LoginRequiredMixin, CreateView):
     form.instance.user = self.request.user
     return super().form_valid(form)
 
-class DogUpdate(SuccessMessageMixin, UpdateView):
+class DogUpdate(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
   model = Dog
   fields = ['breed', 'description', 'age', 'size']
   success_message = 'Dog was successfully updated'
+  success_url = '/accounts/profile/'
   
 
-class DogDelete(DeleteView):
+class DogDelete(LoginRequiredMixin, DeleteView):
   model = Dog
   success_url = '/accounts/profile/'
   success_message = 'Dog was successfully removed'
@@ -142,12 +143,14 @@ class DogDelete(DeleteView):
         messages.success(self.request, self.success_message)
         return super().delete(request, *args, **kwargs)
 
+@login_required
 def playdate_detail(request, playdate_id):
   playdate = Playdate.objects.get(id=playdate_id)
   address = playdate.location.replace(' ', '+')
   local_dogs = Dog.objects.filter(playdate=playdate)
   return render(request, 'playdates/detail.html', {'playdate': playdate, 'local_dogs': local_dogs, 'address': address, 'api_key': settings.GOOGLE_MAPS_API_KEY})
 
+@login_required
 def invite_index(request, playdate_id):
   playdate = Playdate.objects.get(id=playdate_id)
   long1 = request.user.profile.longitude
@@ -160,6 +163,7 @@ def invite_index(request, playdate_id):
       local_dogs.append(dog)
   return render(request, 'playdates/invites.html', {'playdate_id': playdate.id, 'local_dogs': local_dogs})
 
+@login_required
 def add_invites(request, playdate_id):
   playdate = Playdate.objects.get(id=playdate_id)
   # Add user's dog to playdate first
@@ -172,6 +176,7 @@ def add_invites(request, playdate_id):
       dog.playdate_set.add(playdate)
   return redirect('playdate', playdate_id)
 
+@login_required
 def playdates_index(request):
   # these are the playdates the user made
   playdates = Playdate.objects.filter(user=request.user)
@@ -185,6 +190,7 @@ def playdates_index(request):
     [invites.remove(playdate) for playdate in invites if playdate in playdates]
   return render(request, 'playdates/index.html', {'playdates': playdates, 'invites': invites})
 
+@login_required
 def add_invite(request):
   invites = Invite.objects.all()
   return render(request, '')
@@ -197,14 +203,15 @@ class CreatePlaydate(LoginRequiredMixin, CreateView):
     form.instance.user = self.request.user
     return super().form_valid(form)
 
-class UpdatePlaydate(UpdateView):
+class UpdatePlaydate(LoginRequiredMixin, UpdateView):
   model = Playdate
   fields = ['time']
 
-class DeletePlaydate(DeleteView):
+class DeletePlaydate(LoginRequiredMixin, DeleteView):
   model = Playdate
   success_url = '/playdates/'
 
+@login_required
 def dogs_detail(request, dog_id):
   dog = Dog.objects.get(id=dog_id)
   return render(request, 'dogs/detail.html', { 'dog': dog })
