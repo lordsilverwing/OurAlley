@@ -1,6 +1,3 @@
-body {
-  background-color: green;
-}
 
 body {
   display: flex;
@@ -12,7 +9,87 @@ main {
   flex: 1 0 auto;
 }
 
+.profile-info {
+  position: relative;
+}
+
+.flash {
+  position: absolute;
+}
+
 footer.page-footer {
   padding-top: 0;
   text-align: right;
+}
+
+.top-buffer {
+  margin-top: 40px;
+}
+
+.big-i, .dog {
+  width: 175px;
+  height: 175px;
+}
+
+.center-cols > .col {
+  float:none; /* disable the float */
+  display: inline-block; /* make blocks inline-block */
+  text-align: initial; /* restore text-align to default */
+}
+
+#homedogs {
+  width: 100%;
+  height: 100vh;
+}
+
+.invite-card {
+  width: 100%;
+}
+
+nav {
+  -webkit-text-stroke-width: 1px;
+  -webkit-text-stroke-color: black;
+}
+
+#brandlogo {
+  font-size:xx-large;
+  font-weight: bold;
+}
+
+#card-name {
+  font-size: xx-large;
+  font-weight: bold;
+  -webkit-text-stroke-width: 1px;
+  -webkit-text-stroke-color: black;
+}
+
+.carousel .indicators .indicator-item.active{
+  background-color: black
+}
+
+.carousel .indicators .indicator-item{
+  background-color: grey;
+}
+
+.full-width {
+  width: 100%;
+}
+
+.relative {
+  position: relative;
+}
+
+.absolute {
+  font-size: 70px;
+  position: absolute;
+  bottom: -40px;
+  right: 35px;
+}
+
+.full-body {
+  height: 100vh;
+}
+
+.opac {
+  color: rgba(0,0,0,.5)
 }

@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h1 class="center-align" >List of All Dogs</h1>
+
+<form action="/dogs/" method="POST">
+  {% csrf_token %}
+  <h5>Found <span class="green-text lighten-2">{{ local_dogs|length }}</span> dogs within 2 miles of <span class="green-text lighten-2">{{ location }}</span></h5>
+  <input type="text" class="inline" name="location" placeholder="Enter a new location">
+  <input class="btn" type="submit" value="Change location">
+</form>
+
+<div class="row center-align top-buffer">
+{% for dog in local_dogs %}
+  <div class="col s4">
+    <div class="card small">
+      <a href="/dogs/{{ dog.id }}">
+        <div class="card-image">
+        {%with dog.photo_set.all|first as image %}
+          {% if image.url != Null %}  
+              <img src="{{image.url}}" alt="Image of a dog">
+          {% else %}
+              <img src="../../static/images/no-image.png">
+          {% endif %}
+        {% endwith %}
+          <span class="card-title" id="card-name">{{ dog.name }}</span>
+        </div>
+        <div class="card-content center-align black-text">
+          <h6>
+            My name is {{dog.name}}!
+            Click on me if you want to play!
+          </h6>
+        </div>
+      </a>
+    </div>
+  </div>   
+{% endfor %}
+</div>
+{% endblock %} 

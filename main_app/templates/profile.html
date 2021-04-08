@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="row top-buffer">
+    <div class="col s6">
+        <!-- user image goes here -->
+    </div>
+    <div class="col s6 profile-info">
+        <h2>{{ user.first_name}} {{ user.last_name}}</h2>
+        <!-- user description text here -->
+        <h5>{{ user.profile.city }}, {{ user.profile.state }}</h5>
+        <p>{{ user.profile.bio }}</p>
+        <a class="green-text lighten-2 right" href="{% url 'profile_update' user.profile.id %}">edit</a>
+        {% if messages %}
+          <ul class="messages left">
+            {% for message in messages %}
+            <li class="flash chip left">{{ message }} <i class="material-icons close">close</i> </li>
+            {% endfor %}
+          </ul>
+        {% endif %}
+    </div>
+</div>
+
+<div class="top-buffer">
+    <h3>My Pets</h3>
+
+    <div class="row center-align">
+        {% for dog in user.dog_set.all %} 
+        <div class="col s4 ">
+            <div class="card small">
+                <a href="/dogs/{{ dog.id }}">
+                  <div class="card-image">
+                  {%with dog.photo_set.all|first as image %}
+                    {% if image.url != Null %}  
+                        <img src="{{image.url}}" alt="Image of a dog">
+                    {% else %}
+                        <img src="../../static/images/no-image.png">
+                    {% endif %}
+                  {% endwith %}
+                    <span class="card-title" id="card-name">{{ dog.name }}</span>
+                  </div>
+                  <div class="card-content center-align">
+                    <div class="card-action">
+                        <form action="{% url 'add_photo' dog.id %}" enctype="multipart/form-data" method="POST">
+                            {% csrf_token %}
+                            <input type="file" name="photo-file">
+                            <br>
+                            <input type="submit" class="btn-small" value="Upload Photo">
+                          </form>
+                          <br>
+                        <a href="{% url 'dogs_update' dog.id %}">Edit</a>
+                        <a href="{% url 'dogs_delete' dog.id %}">Delete</a>
+                    </div>
+                  </div>
+                </a>
+              </div>
+        </div>
+        {% endfor %}
+
+        <div class="col s3">
+            <a href="{% url 'add_dog' %}">
+                <div class="card small green lighten-4">
+                    <i class="large white-text material-icons big-i">add</i>
+                </div>  
+            </a>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

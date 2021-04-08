@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="row top-buffer">
+    <iframe
+        class="col s6"
+        width="600"
+        height="450"
+        style="border:0"
+        loading="lazy"
+        allowfullscreen
+        src="https://www.google.com/maps/embed/v1/place?key={{ api_key }}
+            &q={{ address }}">
+    </iframe>
+
+    <div class="col s6">
+        <h4><span class="card-title green-text lighten-2">{{ playdate.location }}</span></h4>
+        <p><strong>Time:</strong> {{ playdate.get_time_display }}</p>
+        <p><strong>Date:</strong> {{ playdate.date }}</p>
+        <p><strong>Description:</strong> {{ playdate.description }}</p>
+        <p><strong>Playdate Created By:</strong> {{ playdate.user }}</p>
+        <a href="{% url 'invite_index' playdate.id %}">
+            <div class="chip green lighten-1 white-text hoverable">Invite A Dog</div>
+        </a>
+    </div>
+</div>
+    <div class="row top-buffer">
+        <h4>Invited Dogs</h4>
+        {% if local_dogs %}
+            {% for dog in local_dogs %} 
+            <div class="col s3 ">
+                <a href="{% url 'detail' dog.id %}">
+                <div class="card">
+                    {%with dog.photo_set.all|first as image %}
+                        {% if image.url != Null %}  
+                            <img width="175" height="175" src="{{image.url}}" alt="Image of a dog">
+                        {% else %}
+                            <img width="175" height="175" src="../../static/images/no-image.png">
+                        {% endif %}
+                    {% endwith %}
+                    {{ dog.name }}
+                </div>
+               </a> 
+            </div>
+            {% endfor %} 
+        {% else %} 
+            <p>There are no dogs invited yet</p>
+        {% endif %}
+    </div>
+</div>
+
+
+
+{% endblock %}

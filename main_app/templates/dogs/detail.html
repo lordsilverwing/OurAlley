@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h1 class="center-align">{{ dog.name }}</h1>
+
+<div class="row">
+    <div class="col s6">
+        <div class="carousel carousel-slider center">
+            {% for photo in dog.photo_set.all %}  
+                <div class="carousel-item">
+                    <img src="{{photo.url}}">   
+                </div>
+            {% empty %}
+                <div class="card-panel teal-text center-align">No Photos Uploaded</div>
+            {% endfor %}
+        </div>
+ </div> 
+
+    <div class="col s6">
+        <div class="card">
+            <div class="card-content">
+                <span class="card-title center-align"></span>                    
+                    <p>Description: {{ dog.description }}</p>
+                    <p>Breed: {{ dog.breed }}</p>
+                    <p>Size:  {{dog.get_size_display}} </p>
+                    {% if dog.age > 0 %}
+                        <p>Age: {{ dog.age }}</p>
+                    {% else %}
+                        <p>Age: Puppy</p>
+                    {% endif %}
+                </div>
+        </div>  
+        {% if messages %}
+          <ul class="messages left">
+            {% for message in messages %}
+            <li class="flash chip left">{{ message }} <i class="material-icons close">close</i> </li>
+            {% endfor %}
+          </ul>
+        {% endif %}
+    </div>
+
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var elems = document.querySelectorAll('.carousel');
+        var instance = M.Carousel.init(elems, {
+            fullwidth: true,
+            indicators: true,
+            numVisible: 7
+            
+        });
+    });
+</script>
+
+{% endblock %}
