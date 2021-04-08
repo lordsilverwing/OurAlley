@@ -93,3 +93,8 @@ nav {
 .opac {
   color: rgba(0,0,0,.5)
 }
+
+.reframe {
+  overflow: hidden;
+  height: 100%;
+}
