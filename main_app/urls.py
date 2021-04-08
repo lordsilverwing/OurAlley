@@ -18,4 +18,6 @@ urlpatterns = [
     path('playdates/<int:playdate_id>/', views.playdate_detail, name='playdate'),
     path('playdates/<int:playdate_id>/invites/', views.invite_index, name='invite_index'),
     path('playdates/<int:playdate_id>/add_invite/', views.add_invites, name='add_invite'),
+    path('playdates/<int:pk>/update/', views.UpdatePlaydate.as_view(), name='playdates_update'),
+    path('playdates/<int:pk>/delete/', views.DeletePlaydate.as_view(), name='playdates_delete'),
 ]

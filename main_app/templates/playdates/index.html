@@ -14,6 +14,10 @@
             <p class="black-text"><strong>Date:</strong> {{ playdate.date }}</p>
             <p class="black-text"><strong>Description:</strong> {{ playdate.description }}</p>
             <p class="black-text"><strong>User:</strong> {{ playdate.user }}</p>
+            <div class="card-action">
+              <a href="{% url 'playdates_update' playdate.id %}">Edit</a>
+              <a href="{% url 'playdates_delete' playdate.id %}">Delete</a>
+            </div>
           </div>
           <div class="col s6">
             <span class="card-title green-text lighten-2">Dogs Going Already:</span>
