@@ -23,11 +23,13 @@
             <span class="card-title green-text lighten-2">Dogs Going Already:</span>
             {% for dog in playdate.dogs.all %} 
               <div class="chip">
-                {% for photo in dog.photo_set.all %}  
-                    <img src="{{photo.url}}" alt="Image of a dog">
-                    {% empty %}
-                    <img src="../../static/images/no-image.png"> 
-                {% endfor %}
+                {%with dog.photo_set.all|first as image %}
+                {% if image.url != Null %}  
+                    <img src="{{image.url}}" alt="Image of a dog">
+                {% else %}
+                  <img src="../../static/images/no-image.png">
+                {% endif %}
+            {% endwith %}
                 {{ dog.name }}
               </div>
             {% endfor %} 
