@@ -83,9 +83,13 @@ nav {
   font-size: 70px;
   position: absolute;
   bottom: -40px;
-  right: 15px;
+  right: 35px;
 }
 
 .full-body {
   height: 100vh;
+}
+
+.opac {
+  color: rgba(0,0,0,.5)
 }
