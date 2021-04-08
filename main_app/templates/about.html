@@ -1,37 +1,57 @@
-
-{% extends 'base.html' %}
-{% block content %}
-
-<div class="center-align">
-    <h1>About Our Alley</h1>
-    <h3>Origin</h3>
-    <p>
-    It started with an idea for a website that would connect neighbors together, to increase
-    community building. The best way to connect with others and to foster those relationships is to
-    find a mutual love for something. We decided dogs would be this entry point as dogs are pretty awesome.
-    That then led to the idea of establishing playdates for those dogs. Cast away the frivolity of 
-    human society, embrace dog society! Build healthy dog communities where are four legged best friends
-    can thrive!
-    </p>
-    <h3>What is OurAlley?</h3>
-    <p>
-        Simply put, it is a place where you can see dogs in your area and set up playdates with them for your dog.
-        Either set up your own playdates or receive ones from others. You can also see details about each dog
-        so you can find the perfect match for your best friend!
-    </p>
-    <h3>A Dog Community</h3>
-    <p>
-        Dogs and humans are not so different when it comes to socialization. Sure we may be fancier
-        and more sophisticated, however, the basics remain the same. That is what we want to foster for our
-        companions, a place that you can arrange for them to have a good time. Hopefully your dogs will love it
-        and by extension improve your overall quality of life at home!
-    </p>
-    <h3>Should I use OurAlley?</h3>
-    <p>
-        Personally I have only one dog and he yearns to socialize with other furry four-legged beings. We bipedal beings
-        just get boring sometimes. If you are in the same boat as me or have multiple dogs who just need to spice
-        things up then I recommend you sign up today. Do it for them.
-    </p>
-</div>
-
-{% endblock %}
+{% extends 'base.html' %} {% block content %}
+<div class="row center-align">
+	<h1>About OurAlley</h1>
+	<div class="col s12">
+		<div class="card">
+			<div class="card-image"><img alt="Image of two dogs" src=
+			"../../static/images/cool_dog.jpeg"></div>
+			<div class="card-content">
+				<h5>Origin</h5>
+				<p>It started with an idea for a website that would connect neighbors
+				together, to increase community building. The best way to connect with
+				others, to foster those relationships is to find a mutual love for
+				something. We decided dogs would be this entry point as dogs are pretty
+				awesome. That then led to the idea of establishing playdates for those
+				dogs. Cast away the frivolity of human society, embrace dog society. Build
+				healthy dog communities where are four legged best friends can thrive!</p>
+			</div>
+		</div>
+		<div class="card">
+			<div class="card-image"><img alt="Image of two dogs" src=
+			"../../static/images/twolabs.jpeg"></div>
+			<div class="card-content">
+				<h5>What is OurAlley?</h5>
+				<p>It started with an idea for a website that would connect neighbors
+				together, to increase community building. The best way to connect with
+				others, to foster those relationships is to find a mutual love for
+				something. We decided dogs would be this entry point as dogs are pretty
+				awesome. That then led to the idea of establishing playdates for those
+				dogs. Cast away the frivolity of human society, embrace dog society. Build
+				healthy dog communities where are four legged best friends can thrive!</p>
+			</div>
+		</div>
+		<div class="card">
+			<div class="card-image"><img alt="Image of two dogs" src=
+			"../../static/images/dogplay.jpeg"></div>
+			<div class="card-content">
+				<h5>A Dog Community</h5>
+				<p>Dogs and humans are not so different when it comes to socialization.
+				Sure we may be fancier and more sophisticated, however, the basics remain
+				the same. That is what we want to foster for our companions, a place that
+				you can arrange for them to have a good time. Hopefully your dogs will love
+				it and by extension improve your overall quality of life at home!</p>
+			</div>
+		</div>
+		<div class="card">
+			<div class="card-image"><img alt="Image of two dogs" src=
+			"../../static/images/runningdogs.jpeg"></div>
+			<div class="card-content">
+				<h5>Should I use OurAlley?</h5>
+				<p>Personally I have only one dog and he yearns to socialize with other
+				furry four-legged beings. We bipedal beings just get boring sometimes. If
+				you are in the same boat as me or have multiple dogs who just need to spice
+				things up then I recommend you sign up today. Do it for them, they'll thank you!</p>
+			</div>
+		</div>
+	</div>
+</div>{% endblock %}
