@@ -27,12 +27,12 @@
     <div class="row center-align">
         {% for dog in user.dog_set.all %} 
         <div class="col s4 ">
-            <div class="card small">
+            <div class="card medium">
                 <a href="/dogs/{{ dog.id }}">
                   <div class="card-image">
                   {%with dog.photo_set.all|first as image %}
                     {% if image.url != Null %}  
-                        <img src="{{image.url}}" alt="Image of a dog">
+                        <img class="reframe" src="{{image.url}}" alt="Image of a dog">
                     {% else %}
                         <img src="../../static/images/no-image.png">
                     {% endif %}
@@ -42,14 +42,15 @@
                   <div class="card-content center-align">
                     <div class="card-action">
                         <form action="{% url 'add_photo' dog.id %}" enctype="multipart/form-data" method="POST">
-                            {% csrf_token %}
-                            <input type="file" name="photo-file">
-                            <br>
-                            <input type="submit" class="btn-small" value="Upload Photo">
-                          </form>
-                          <br>
+                          {% csrf_token %}
+                          <input class="green-text" type="file" name="photo-file">
+                          <hr>
+                          <input type="submit" class="btn-small green" value="Upload Photo">
+                        </form>
+                        <div>
                         <a href="{% url 'dogs_update' dog.id %}">Edit</a>
                         <a href="{% url 'dogs_delete' dog.id %}">Delete</a>
+                        </div>
                     </div>
                   </div>
                 </a>
@@ -59,8 +60,9 @@
 
         <div class="col s3">
             <a href="{% url 'add_dog' %}">
-                <div class="card small green lighten-4">
-                    <i class="large white-text material-icons big-i">add</i>
+                <div class="row valign-wrapper hoverable card small green lighten-4">
+                  <h5 class="col s12">Add A Dog</h5>
+                    <i class="col s12 full-width large white-text material-icons big-i">add</i>
                 </div>  
             </a>
         </div>
