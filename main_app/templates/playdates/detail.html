@@ -28,6 +28,7 @@
         <h4>Invited Dogs</h4>
         {% if local_dogs %}
             {% for dog in local_dogs %} 
+
             <div class="col s3 ">
                 <a href="{% url 'detail' dog.id %}">
                 <div class="card">
@@ -38,10 +39,12 @@
                             <img width="175" height="175" src="../../static/images/no-image.png">
                         {% endif %}
                     {% endwith %}
-                    {{ dog.name }}
+                    <p class="center invite-text black-text">{{ dog.name }}</p> 
                 </div>
                </a> 
             </div>
+
+            
             {% endfor %} 
         {% else %} 
             <p>There are no dogs invited yet</p>

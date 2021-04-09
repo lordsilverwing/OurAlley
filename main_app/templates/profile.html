@@ -6,18 +6,18 @@
         <!-- user image goes here -->
     </div>
     <div class="col s6 profile-info">
-        <h2>{{ user.first_name}} {{ user.last_name}}</h2>
-        <!-- user description text here -->
-        <h5>{{ user.profile.city }}, {{ user.profile.state }}</h5>
-        <p>{{ user.profile.bio }}</p>
-        <a class="green-text lighten-2 right" href="{% url 'profile_update' user.profile.id %}">edit</a>
-        {% if messages %}
-          <ul class="messages left">
-            {% for message in messages %}
-            <li class="flash chip left">{{ message }} <i class="material-icons close">close</i> </li>
-            {% endfor %}
-          </ul>
-        {% endif %}
+          <h2>{{ user.first_name}} {{ user.last_name}}</h2>
+          <!-- user description text here -->
+          <h5>{{ user.profile.city }}, {{ user.profile.state }}</h5>
+          <p>{{ user.profile.bio }}</p>
+          <a class="green-text lighten-2 right" href="{% url 'profile_update' user.profile.id %}">edit</a>
+          {% if messages %}
+            <ul class="messages left">
+              {% for message in messages %}
+              <li class="flash chip left">{{ message }} <i class="material-icons close">close</i> </li>
+              {% endfor %}
+            </ul>
+          {% endif %}
     </div>
 </div>
 
@@ -43,13 +43,13 @@
                     <div class="card-action">
                         <form action="{% url 'add_photo' dog.id %}" enctype="multipart/form-data" method="POST">
                           {% csrf_token %}
-                          <input class="green-text" type="file" name="photo-file">
+                          <input class="green-text truncate" type="file" name="photo-file">
                           <hr>
                           <input type="submit" class="btn-small green" value="Upload Photo">
                         </form>
                         <div>
-                        <a href="{% url 'dogs_update' dog.id %}">Edit</a>
-                        <a href="{% url 'dogs_delete' dog.id %}">Delete</a>
+                          <a href="{% url 'dogs_update' dog.id %}">Edit</a>
+                          <a href="{% url 'dogs_delete' dog.id %}">Delete</a>
                         </div>
                     </div>
                   </div>
@@ -60,10 +60,8 @@
 
         <div class="col s3">
             <a href="{% url 'add_dog' %}">
-                <div class="row valign-wrapper hoverable card small green lighten-4">
-                  <h5 class="col s12">Add A Dog</h5>
-                    <i class="col s12 full-width large white-text material-icons big-i">add</i>
-                </div>  
+              <i class=" center large green-text lighten-3 material-icons">add</i> 
+              <p class="large-text green-text lighten-2">Add Dog</p>
             </a>
         </div>
     </div>
