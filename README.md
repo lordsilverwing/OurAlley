@@ -7,7 +7,7 @@
 - [Technologies Used](#technologies-used)
 - [Screenshots](#screenshots)
 - [Development](#development)
-  - [Early Design Layout Wireframes]
+  - [Early Design Layout Wireframes](#early-design-layout-wireframes)
   - [Original Entity Relational Diagram](#original-entity-relational-diagram)
   - [Future Additions](#future-additions)
 
@@ -45,11 +45,11 @@ View the
 
 #### signup page
 
-![signup Page](./static/images/shot-1.png)
+![signup Page](./main_app/static/images/shot-1.png)
 
 #### Displays pets
 
-![Displays](./static/images/shot-2.png)
+![Displays](./main_app/static/images/shot-2.png)
 
 ---
 
@@ -57,12 +57,12 @@ View the
 
 ### _Early Design Layout Wireframes_:
 
-![Wireframe](./static/images/wireframe-1.png)  
-![Wireframe](./static/images/wireframe-2.png)
+![Wireframe](./main_app/static/images/wireframe-1.png)  
+![Wireframe](./main_app/static/images/wireframe-2.png)
 
 ### _Original Entity Relational Diagram_:
 
-## ![ERD](./static/images/OurAlley-ERD.png)
+## ![ERD](./main_app/static/images/OurAlley-ERD.png)
 
 ### _Future Additions_:
 
