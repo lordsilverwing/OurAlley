@@ -43,13 +43,17 @@ View the
 
 ## Screenshots
 
+#### Displays playdate index
+
+![Displays index](./main_app/static/images/shot-3.png)
+
 #### signup page
 
 ![signup Page](./main_app/static/images/shot-1.png)
 
 #### Displays pets
 
-![Displays](./main_app/static/images/shot-2.png)
+![Displays](./main_app/static/images/shot-4.png)
 
 ---
 
