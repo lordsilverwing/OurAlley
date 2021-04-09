@@ -4,8 +4,8 @@
 <div class="row top-buffer">
     <iframe
         class="col s6"
-        width="600"
-        height="450"
+        width="350"
+        height="300"
         style="border:0"
         loading="lazy"
         allowfullscreen
@@ -31,12 +31,12 @@
 
             <div class="col s3 ">
                 <a href="{% url 'detail' dog.id %}">
-                <div class="card">
+                <div class="card row">
                     {%with dog.photo_set.all|first as image %}
                         {% if image.url != Null %}  
-                            <img width="175" height="175" src="{{image.url}}" alt="Image of a dog">
+                            <img class="responsive-img" src="{{image.url}}" alt="Image of a dog">
                         {% else %}
-                            <img width="175" height="175" src="../../static/images/no-image.png">
+                            <img class="responsive-img" src="../../static/images/no-image.png">
                         {% endif %}
                     {% endwith %}
                     <p class="center invite-text black-text">{{ dog.name }}</p> 
