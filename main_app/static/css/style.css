@@ -113,3 +113,13 @@ nav {
   top: 0%;
   left: 5%;
 }
+
+.large-text {
+  font-size: 30px;
+}
+
+.invite-text {
+  margin: 0;
+  padding: 0;
+  border: 0;
+}

@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<h1 class="center-align">Playdates!</h1>
+<h4 class="center-align top-buffer">Your Playdates</h4>
 
 {% if playdates %}
   {% for playdate in playdates %}
@@ -20,7 +20,7 @@
             
           </div>
           <div class="col s6">
-            <span class="card-title green-text lighten-2">Dogs Going Already:</span>
+            <span class="card-title green-text lighten-2">Dogs Invited:</span>
             {% for dog in playdate.dogs.all %} 
               <div class="chip">
                 {%with dog.photo_set.all|first as image %}
@@ -44,7 +44,7 @@
 {% endif %}
 
 
-<h4 class="center-align">Invites To Playdates</h4>
+<h4 class="center-align top-buffer">Invites To Playdates</h4>
 
 {% if invites %} 
   {% for playdate in invites %}
@@ -59,7 +59,7 @@
             <p class="black-text"><strong>User:</strong> {{ playdate.user }}</p>
           </div>
           <div class="col s6">
-            <span class="card-title green-text lighten-2">Dogs Going Already:</span>
+            <span class="card-title green-text lighten-2">Dogs Invited:</span>
             {% for dog in playdate.dogs.all %} 
               <div class="chip">
                 {%with dog.photo_set.all|first as image %}

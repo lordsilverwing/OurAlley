@@ -197,7 +197,7 @@ def add_invite(request):
 
 class CreatePlaydate(LoginRequiredMixin, CreateView):
   model = Playdate
-  fields = ['time', 'date', 'description']
+  fields = ['time', 'date', 'location', 'description']
 
   def form_valid(self, form):
     form.instance.user = self.request.user
